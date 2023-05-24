@@ -23,6 +23,10 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent, NavBarComponent, AboutComponent, BlogSingleComponent, BlogComponent, CartComponent, CheckoutComponent, ContactComponent, ProductSingleComponent, ShopComponent, WishlistComponent, HomeComponent],
@@ -35,7 +39,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule 
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,// Include it in imports array
+    HttpClientModule,
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

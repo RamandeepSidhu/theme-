@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row no-gutters slider-text align-items-center justify-content-center">
       <div class="col-md-9 ftco-animate text-center">
-        <p class="breadcrumbs"><span class="mr-2"><a href="home">Home</a></span> <span>Cart</span></p>
+        <p class="breadcrumbs"><span class="mr-2"><a routerLink="home">Home</a></span> <span>Cart</span></p>
         <h1 class="mb-0 bread">My Cart</h1>
       </div>
     </div>
@@ -20,7 +20,7 @@
             <thead class="thead-primary">
               <tr class="text-center">
                 <th>&nbsp;</th>
-                <th>&nbsp;</th>
+                <th>Image</th>
                 <th>Product name</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -28,54 +28,30 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="text-center">
-                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
+              <tr class="text-center" *ngFor="let item of items">
+                <td class="product-remove">
+                  <span class="ion-ios-close" (click)="removeItem(item._id)"></span>
+                </td>
                 <td class="image-prod">
-                  <div class="img" style="background-image:url(../../assets/images/product-3.jpg);"></div>
+                  <div class="img" [style.background-image]="'url(' + item.image + ')'"></div>
                 </td>
-
                 <td class="product-name">
-                  <h3>Bell Pepper</h3>
-                  <p>Far far away, behind the word mountains, far from the countries</p>
+                  <h3>{{item.name }}</h3>
+                  <p>{{item.description }}</p>
                 </td>
-
-                <td class="price">$4.90</td>
-
+                <td class="price">{{ item.price | currency }}</td>
                 <td class="quantity">
                   <div class="input-group mb-3">
-                    <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1"
-                      max="100">
+                    <input type="text" name="quantity" class="quantity form-control input-number" [value]=" item.quantity" min="1" max="100">
                   </div>
                 </td>
-
-                <td class="total">$4.90</td>
-              </tr><!-- END TR-->
-
-              <tr class="text-center">
-                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
-                <td class="image-prod">
-                  <div class="img" style="background-image:url(../../assets/images/product-4.jpg);"></div>
-                </td>
-
-                <td class="product-name">
-                  <h3>Bell Pepper</h3>
-                  <p>Far far away, behind the word mountains, far from the countries</p>
-                </td>
-
-                <td class="price">$15.70</td>
-
-                <td class="quantity">
-                  <div class="input-group mb-3">
-                    <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1"
-                      max="100">
-                  </div>
-                </td>
-
-                <td class="total">$15.70</td>
-              </tr><!-- END TR-->
+                <td class="total">{{ item.price | currency }}</td>
+              </tr>
             </tbody>
+            
+            
+            
+            
           </table>
         </div>
       </div>
@@ -92,7 +68,7 @@
             </div>
           </form>
         </div>
-        <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
+        <p><a  class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
       </div>
       <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
         <div class="cart-total mb-3">
@@ -113,7 +89,7 @@
             </div>
           </form>
         </div>
-        <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
+        <p><a class="btn btn-primary py-3 px-4">Estimate</a></p>
       </div>
       <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
         <div class="cart-total mb-3">

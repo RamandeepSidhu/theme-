@@ -1440,10 +1440,7 @@ textarea.form-control {
 
 
 
-// .ftco-animate {
-// 	 opacity: 0;
-// 	 visibility: hidden;
-// }
+
 
 .bg-primary {
 	background: $primary!important;
@@ -2493,4 +2490,5 @@ textarea.form-control {
   }
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {font-size:.875rem; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-family:'Poppins'}
+
