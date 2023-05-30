@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 export class AddToCartService {
   public cartItemCountSubject: BehaviorSubject<number>;
   public cartItems: BehaviorSubject<any[]>;
+  public totalBalanceKey = 'totalBalance';
 
   constructor(private http: HttpClient) {
     const storedCartItemCount = localStorage.getItem('cartItemCount');
@@ -20,36 +21,35 @@ export class AddToCartService {
   }
 
   addItem(credentials: any): Observable<any> {
-    const url = 'http://localhost:3000/add-item'; // Replace with your API endpoint URL
+    const url = 'http://localhost:3000/add-item'; URL
     return this.http.post(url, credentials).pipe(
       tap(() => {
-        this.updateCartItemCount(); // Update the cart item count after adding an item
+        this.updateCartItemCount();
       })
     );
   }
 
   getItem(): Observable<any[]> {
-    const url = 'http://localhost:3000/get-item'; // Replace with your API endpoint URL
+    const url = 'http://localhost:3000/get-item';
     return this.http.get<any[]>(url);
   }
 
   getCartItemCount(): Observable<number> {
     return this.cartItemCountSubject.asObservable();
   }
-  
+
   removeItem(itemId: string): Observable<any> {
-    const url = `http://localhost:3000/delete-item/${itemId}`; // Replace with your API endpoint URL
+    const url = `http://localhost:3000/delete-item/${itemId}`;
     return this.http.delete(url).pipe(
       tap(() => {
         const updatedItems = this.cartItems.getValue().filter(item => item._id !== itemId);
         this.cartItems.next(updatedItems);
-        this.updateCartItemCount(); // Update the cart item count after removing an item
+        this.updateCartItemCount();
       })
     );
   }
-  
+
   updateCartItemCount() {
-    // Retrieve the latest cart items from the server and update the cart item count
     this.getItem().pipe(
       tap((items: any[]) => {
         const cartItemCount = items.length;
@@ -61,5 +61,39 @@ export class AddToCartService {
         console.error('Failed to retrieve cart items', error);
       }
     });
+  }
+  checkOut(item: any): Observable<any> {
+    const url = 'http://localhost:3000/checkout'; URL
+    return this.http.post(url, item).pipe(
+      tap(() => {
+        this.updateCartItemCount();
+      })
+    );
+  }
+
+  updateCartItem(item: any): Observable<any> {
+    const url = `http://localhost:3000/update-item/${item._id}`;
+    return this.http.put(url, item).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          console.log('Item not found in cart');
+        } else {
+          console.log('An error occurred:', error.message);
+        }
+        throw error;
+      })
+    );
+  }
+
+  setTotalBalance(totalBalance: number): void {
+    localStorage.setItem(this.totalBalanceKey, totalBalance.toString());
+  }
+  getTotalBalance(): number | null {
+    const storedTotalBalance = localStorage.getItem(this.totalBalanceKey);
+    return storedTotalBalance ? parseFloat(storedTotalBalance) : null;
+  }
+  subscribe(item: any): Observable<any> {
+    const url = 'http://localhost:3000/subscribe'; URL
+    return this.http.post(url, item).pipe();
   }
 }

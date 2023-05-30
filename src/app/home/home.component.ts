@@ -7,8 +7,8 @@ import { AddToCartService } from '../Services/add-to-cart.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private service: AddToCartService) {}
-  ngOnInit(): void {}
+  constructor(private service: AddToCartService) { }
+  ngOnInit(): void { }
   items: any[] = [
     {
       name: 'Bell Pepper',
@@ -16,7 +16,8 @@ export class HomeComponent implements OnInit {
       discount: 30,
       image: '../../assets/images/product-1.jpg',
       rating: 4.5,
-      heart: false,
+      quantity:''
+
     },
     {
       name: 'Strawberry',
@@ -24,7 +25,6 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-2.jpg',
       rating: 2.5,
-      heart: true,
     },
     {
       name: 'Green Beans',
@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-3.jpg',
       rating: 2.5,
+      quantity:''
     },
     {
       name: 'Purple Cabbage',
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-4.jpg',
       rating: 2.5,
-      heart: true,
+      quantity:''
     },
     {
       name: 'Tomatoe',
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-5.jpg',
       rating: 2.5,
-      heart: true,
+      quantity:''
     },
     {
       name: 'Brocolli',
@@ -55,7 +56,7 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-6.jpg',
       rating: 2.5,
-      heart: true,
+      quantity:''
     },
     {
       name: 'Carrots',
@@ -63,7 +64,7 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-7.jpg',
       rating: 2.5,
-      heart: true,
+      quantity:''
     },
     {
       name: 'Fruit Juice',
@@ -71,7 +72,7 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-8.jpg',
       rating: 2.5,
-      heart: true,
+      quantity:''
     },
 
 
@@ -81,7 +82,7 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-9.jpg',
       rating: 2.5,
-      heart: true,
+      quantity:''
     },
 
 
@@ -91,7 +92,7 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-10.jpg',
       rating: 2.5,
-      heart: true,
+      quantity:''
     },
 
 
@@ -101,7 +102,7 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-11.jpg',
       rating: 2.5,
-      heart: true,
+      quantity:''
     },
     {
       name: 'Chilli',
@@ -109,16 +110,25 @@ export class HomeComponent implements OnInit {
       discount: null,
       image: '../../assets/images/product-12.jpg',
       rating: 2.5,
-      heart: true,
+      quantity:''
     },
   ];
 
   addToCart(item: any) {
     this.service.addItem(item).subscribe((response) => {
       console.log('Item added to cart', response);
-      this.service.updateCartItemCount(); // Update cart item count after adding an item
-      item.heart = !item.heart;
-      item.rating = item.heart ? item.rating + 1 : item.rating - 1;
+      this.service.updateCartItemCount();
+      // Calculate total price and quantity
+      let totalPrice = 0;
+      let totalQuantity = 0;
+
+      for (const cartItem of this.items) {
+        if (cartItem.name === item.name) {
+          totalPrice += cartItem.price;
+          totalQuantity++;
+        }
+      }
+
     });
   }
 

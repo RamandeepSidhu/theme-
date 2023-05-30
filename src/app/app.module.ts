@@ -27,6 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { StripeModule } from 'stripe-angular';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent, NavBarComponent, AboutComponent, BlogSingleComponent, BlogComponent, CartComponent, CheckoutComponent, ContactComponent, ProductSingleComponent, ShopComponent, WishlistComponent, HomeComponent],
@@ -43,7 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     NgxPaginationModule,// Include it in imports array
     HttpClientModule,
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot() ,// ToastrModule added
+    StripeModule.forRoot("pk_test_51Mt3YYSIexLUnejSLvPJyLJBnPcQa3WssjE0me9kUtfRniKbuNyjiHj5Y71A16jH6aegfxCmkh1BZ7bhaA4k7EV300UbA8wHWs")
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

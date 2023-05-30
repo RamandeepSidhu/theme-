@@ -9,8 +9,24 @@
     </div>
   </div>
 </div>
+<div *ngIf="invalidError" style="color:red">
+  {{ invalidError.message }}
+</div>
+<!-- <stripe-card
+  #stripeCard
+  (catch)="onStripeError($event)"
+  (cardMounted)="onCardMounted($event)"
+  [(invalid)]="invalidError"
+  (tokenChange)="onTokenChange($event)"
+></stripe-card> -->
+<stripe-card #stripeCard
+(cardMounted)="cardCaptureReady = 1"
+(tokenChange)="setStripeToken($event)">
+</stripe-card>
 
-<section class="ftco-section">
+<div class="col-md-12 text-right">
+  <a class="main_btn" (click)="stripeCard.createToken($event)">Pay ${{ totalBalance }}</a>
+  <!-- <section class="ftco-section">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-xl-7 ftco-animate">
@@ -94,7 +110,7 @@
               </div>
             </div>
           </div>
-        </form><!-- END -->
+        </form>
       </div>
       <div class="col-xl-5">
         <div class="row mt-5 pt-3">
@@ -156,27 +172,8 @@
             </div>
           </div>
         </div>
-      </div> <!-- .col-md-8 -->
+      </div> 
     </div>
   </div>
-</section> <!-- .section -->
-
-<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-  <div class="container py-4">
-    <div class="row d-flex justify-content-center py-5">
-      <div class="col-md-6">
-        <h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
-        <span>Get e-mail updates about our latest shops and special offers</span>
-      </div>
-      <div class="col-md-6 d-flex align-items-center">
-        <form action="#" class="subscribe-form">
-          <div class="form-group d-flex">
-            <input type="text" class="form-control" placeholder="Enter email address">
-            <input type="submit" value="Subscribe" class="submit px-3">
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+</section>  -->
 <app-footer></app-footer>

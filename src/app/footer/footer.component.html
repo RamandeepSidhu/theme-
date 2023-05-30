@@ -30,12 +30,29 @@
       <span>Get e-mail updates about our latest shops and special offers</span>
   </div>
   <div class="col-md-6 d-flex align-items-center">
-    <form action="#" class="subscribe-form">
+    <form [formGroup]="subscriberForm" (ngSubmit)="subscribeEmail(subscriberForm)" class="subscribe-form">
       <div class="form-group d-flex">
-        <input type="text" class="form-control" placeholder="Enter email address">
-        <input type="submit" value="Subscribe" class="submit px-3">
+        <input type="text" data-text="Email" placeholder="Email"
+        formControlName="email" class="form-control" placeholder="Enter email address">
+        <mat-error
+        *ngIf="submitted&&subscriberForm.controls['email']&&subscriberForm.controls['email'].errors&&subscriberForm.controls['email'].errors['required']&&!subscriberForm.controls['email'].errors['email']">
+        Email is required.</mat-error>
+     <mat-error
+        *ngIf="submitted&&subscriberForm.controls['email']&&subscriberForm.controls['email'].errors && subscriberForm.controls['email'].errors['email']">
+        Please Enter Valid Email
+     </mat-error>
+     <mat-error *ngIf="submitted&&error">
+        {{error}}
+     </mat-error>
+        <button class="main_btn w-100 mt-3" value="Subscribe" class="submit px-3">Subscribe</button>
+
       </div>
     </form>
+
+
+
+
+
   </div>
 </div>
 </div>

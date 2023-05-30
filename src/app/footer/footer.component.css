@@ -1,0 +1,6 @@
+mat-error {
+    position: absolute;
+    top: 58px;
+    color: red;
+    /* background-color: #33255400 !important; */
+}

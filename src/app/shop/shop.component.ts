@@ -7,8 +7,8 @@ import { AddToCartService } from '../Services/add-to-cart.service';
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent {
-  constructor(private service: AddToCartService) {}
-  ngOnInit(): void {}
+  constructor(private service: AddToCartService) { }
+  ngOnInit(): void { }
   items: any[] = [
     {
       name: 'Bell Pepper',
@@ -16,7 +16,8 @@ export class ShopComponent {
       discount: 30,
       image: '../../assets/images/product-1.jpg',
       rating: 4.5,
-      heart: false,
+      totalPrice: '',
+      quantity: ''
     },
     {
       name: 'Strawberry',
@@ -24,7 +25,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-2.jpg',
       rating: 2.5,
-      heart: true,
+      totalPrice: '',
+      quantity: ''
     },
     {
       name: 'Green Beans',
@@ -32,6 +34,7 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-3.jpg',
       rating: 2.5,
+      quantity: ''
     },
     {
       name: 'Purple Cabbage',
@@ -39,7 +42,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-4.jpg',
       rating: 2.5,
-      heart: true,
+      totalPrice: '',
+      quantity: ''
     },
     {
       name: 'Tomatoe',
@@ -47,7 +51,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-5.jpg',
       rating: 2.5,
-      heart: true,
+      totalPrice: '',
+      quantity: ''
     },
     {
       name: 'Brocolli',
@@ -55,7 +60,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-6.jpg',
       rating: 2.5,
-      heart: true,
+      totalPrice: '',
+      quantity: ''
     },
     {
       name: 'Carrots',
@@ -63,7 +69,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-7.jpg',
       rating: 2.5,
-      heart: true,
+      totalPrice: '',
+      quantity: ''
     },
     {
       name: 'Fruit Juice',
@@ -71,7 +78,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-8.jpg',
       rating: 2.5,
-      heart: true,
+      totalPrice: '',
+      quantity: ''
     },
 
 
@@ -81,7 +89,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-9.jpg',
       rating: 2.5,
-      heart: true,
+      totalPrice: '',
+      quantity: ''
     },
 
 
@@ -91,7 +100,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-10.jpg',
       rating: 2.5,
-      heart: true,
+      totalPrice: '',
+      quantity: ''
     },
 
 
@@ -101,7 +111,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-11.jpg',
       rating: 2.5,
-      heart: true,
+      quantity: '',
+      totalPrice: '',
     },
     {
       name: 'Chilli',
@@ -109,7 +120,8 @@ export class ShopComponent {
       discount: null,
       image: '../../assets/images/product-12.jpg',
       rating: 2.5,
-      heart: true,
+      totalPrice: '',
+      quantity: ''
     },
   ];
 
@@ -117,8 +129,7 @@ export class ShopComponent {
     this.service.addItem(item).subscribe((response: any) => {
       console.log('Item added to cart', response);
       this.service.updateCartItemCount(); // Update cart item count after adding an item
-      item.heart = !item.heart;
-      item.rating = item.heart ? item.rating + 1 : item.rating - 1;
+      item.totalPrice = !item.totalPrice;
     });
   }
 

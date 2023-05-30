@@ -7,7 +7,9 @@ export const environment = {
     storageBucket: "vegefoods-master.appspot.com",
     messagingSenderId: "454793026819",
     appId: "1:454793026819:web:5bb6249883c93dcc5d9d36",
-    measurementId: "G-CZQVBRHCNC"
+    measurementId: "G-CZQVBRHCNC",
+    stripePublishableKey: 'your_publishable_key',
+
   }
 };
 
